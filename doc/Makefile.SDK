@@ -119,10 +119,10 @@ $(SOURCE):
 	mkdir $@
 
 $(LH_SRC): | $(SOURCE)
-	cd $(SOURCE) && git clone git://gitorious.org/neutrino-hd/libstb-hal.git
+	cd $(SOURCE) && git clone https://github.com/neutrino-mp/libstb-hal.git
 
 $(N_SRC): | $(SOURCE)
-	cd $(SOURCE) && git clone git://gitorious.org/neutrino-mp/neutrino-mp.git
+	cd $(SOURCE) && git clone https://github.com/lexandr0s/meta-neutrino-mp.git
 
 checkout: $(SRC_DEP) $(N_SRC)
 
