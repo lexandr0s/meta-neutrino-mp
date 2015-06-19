@@ -56,6 +56,8 @@ SRC_URI = " \
 	file://custom-poweroff.init \
 	file://mount.mdev \
 	file://COPYING.GPL \
+	file://cam \
+	file://showiframe \
 "
 
 S = "${WORKDIR}/git"
@@ -84,7 +86,9 @@ do_compile () {
 do_install_prepend () {
 	install -d ${D}/${sysconfdir}/init.d
 	install -m 755 ${WORKDIR}/neutrino.init ${D}/${sysconfdir}/init.d/neutrino
+	install -m 755 ${WORKDIR}/cam ${D}/${sysconfdir}/init.d/cam
 	install -m 755 ${WORKDIR}/custom-poweroff.init ${D}/${sysconfdir}/init.d/custom-poweroff
+	install -m 755 ${WORKDIR}/showiframe ${D}/bin/showiframe
 	install -m 644 ${WORKDIR}/timezone.xml ${D}/${sysconfdir}/timezone.xml
 	install -d ${D}/lib/mdev/fs
 	install -m 755 ${WORKDIR}/mount.mdev ${D}/lib/mdev/fs/mount
@@ -95,6 +99,7 @@ do_install_prepend () {
 	echo "creator=${MAINTAINER}"             >> ${D}/.version 
 	echo "imagename=Neutrino-MP"             >> ${D}/.version 
 	echo "homepage=${HOMEPAGE}"              >> ${D}/.version 
+	cp -af $(LOCDIR)/* $(D)
 	update-rc.d -r ${D} custom-poweroff start 89 0 .
 }
 
