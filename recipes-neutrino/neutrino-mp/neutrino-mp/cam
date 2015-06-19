@@ -1,0 +1,76 @@
+#!/bin/sh
+#
+# Home Sharing script
+#
+cam_start() {
+#/var/emu/oscam -b -c /var/keys >/dev/null &
+
+#/var/emu/oscamemu -b -c /var/keys >/dev/null &
+
+#/var/emu/mgcamd >/dev/null &
+
+#/var/emu/gbox & > /dev/null 2>&1
+
+#/var/emu/cs2gbox & > /dev/null 2>&1
+
+#/var/emu/camd3 /var/keys/camd3.config >/dev/null
+
+#/var/emu/sbox /var/keys/sbox.conf >/dev/null
+
+#/var/emu/vizcam /var/keys/vizcam.conf >/dev/null
+
+#/var/emu/multics >/dev/null
+
+#/var/emu/incubus /var/keys/incubusCamd.conf >/dev/null
+
+#/var/emu/cccam /var/keys/mg_cfg >/dev/null
+
+#/var/emu/wicardd -c /var/keys/wicardd.conf >/dev/null &
+
+#/var/emu/smartcard >/dev/null
+
+}
+
+cam_stop() {
+  touch /tmp/gbox.kill
+  sleep 2
+  rm -rf /tmp/*.info /tmp/mgcamd.pid /tmp/camd.socket /tmp/gbox.*  /tmp/share.* /tmp/*.log /tmp/*.txt
+	sleep 2
+  killall -9 mgcamd >/dev/null
+  killall -9 oscam >/dev/null
+  killall -9 oscamemu >/dev/null
+  killall -9 gbox >/dev/null
+  killall -9 cs2gbox >/dev/null
+  killall -9 camd3 >/dev/null
+  killall -9 sbox >/dev/null
+  killall -9 vizcam >/dev/null
+  killall -9 cccam >/dev/null
+  killall -9 wicardd >/dev/null
+  killall -9 smartcard >/dev/null
+}
+
+case $1 in
+start)
+	cam_start
+	;;
+stop)
+	cam_stop
+	;;
+restart)
+	cam_stop
+	sleep 2
+	cam_start
+	sleep 2
+	pzapit -rz
+	;;
+init)
+	cam_stop
+	sleep 2
+	cam_start
+	if grep lastChannelTVScrambled=true /var/tuxbox/config/zapit/zapit.conf
+	then
+		sleep 5
+		pzapit -rz
+	fi	
+esac
+
