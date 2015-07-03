@@ -49,8 +49,11 @@ SRCREV = "${AUTOREV}"
 PV = "0.1+git${SRCPV}"
 PR = "r2"
 
+#git://github.com/neutrino-mp/neutrino-mp.git;protocol=https 
+
+
 SRC_URI = " \
-	git://github.com/neutrino-mp/neutrino-mp.git;protocol=https \
+	git://${neutrino_git};protocol=https \
 	file://neutrino.init \
 	file://timezone.xml \
 	file://custom-poweroff.init \
