@@ -39,8 +39,11 @@ PACKAGES_prepend_spark = "spark-fp "
 # libstb-hal-bin package for testing binaries etc.
 PACKAGES += "${PN}-bin"
 
+#git://github.com/neutrino-mp/libstb-hal.git;protocol=https 
+
+
 SRC_URI = " \
-	git://github.com/neutrino-mp/libstb-hal.git;protocol=https \
+	git://${libstb-hal_git};protocol=https \
 	file://blank_480.mpg \
 	file://blank_576.mpg \
 	file://timer-wakeup.init \
